@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="color-scheme" content="light dark">
+<title>Check your due – Roza Gift Corner &amp; Electric</title>
+<meta name="theme-color" content="#0f2d4a">
+<style>
+  :root{
+    --ink:#14212e; --muted:#5d6b78; --line:#d9e0e7; --paper:#ffffff; --bg:#f1f4f7;
+    --navy:#1f4e79; --navy-d:#0f2d4a; --due:#b3261e; --due-bg:#fdecea; --ok:#1b6e3c; --ok-bg:#e8f5ec;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --ink:#e8eef4; --muted:#9aa9b7; --line:#2b3947; --paper:#16202a; --bg:#0e151c;
+      --navy:#6fa8dc; --navy-d:#0f2d4a; --due:#ff8a80; --due-bg:#3a1c1a; --ok:#7bd69a; --ok-bg:#16301f; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;background:var(--bg);height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Roboto,"Noto Sans Bengali","Noto Sans","Segoe UI","Nirmala UI",system-ui,-apple-system,Arial,sans-serif;
+    min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;overflow-wrap:break-word}
+  header{background:var(--navy-d);color:#fff;display:flex;align-items:center;gap:10px;
+    padding:14px max(14px,env(safe-area-inset-right,0px)) 14px max(14px,env(safe-area-inset-left,0px));padding-top:calc(14px + env(safe-area-inset-top,0px))}
+  header>div:not(.logo){min-width:0;flex:1 1 auto}
+  .logo{width:42px;height:42px;border-radius:50%;background:#fff;color:#0f2d4a;display:grid;place-items:center;font-weight:800;font-size:11.5px;line-height:1;letter-spacing:.2px;white-space:nowrap;overflow:hidden;flex:none}
+  header b{display:block;font-size:15.5px;line-height:1.3}
+  header small{display:block;opacity:.75;font-size:12.5px;line-height:1.4}
+  .lang{margin-left:auto;flex:none;white-space:nowrap;min-height:36px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer;touch-action:manipulation}
+  .lang:hover{background:rgba(255,255,255,.14)}
+  main{flex:1 0 auto;width:100%;max-width:520px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+  h1{font-size:clamp(22px,6vw,30px);line-height:1.3;margin:0 0 6px;font-weight:700}
+  .sub{margin:0 0 20px;color:var(--muted)}
+  .seg{display:flex;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:3px;margin:0 0 10px}
+  .seg button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:14.5px;padding:10px 6px;min-height:44px;border-radius:8px;cursor:pointer;touch-action:manipulation;transition:background .15s,color .15s}
+  .seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  @media (prefers-color-scheme:dark){.seg button[aria-pressed="true"]{color:#0e151c}}
+  form{display:flex;gap:8px;align-items:stretch}
+  .field{flex:1;display:flex;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:0 12px;transition:border-color .15s,box-shadow .15s}
+  .field:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(31,78,121,.18)}
+  .field span{color:var(--muted);font-weight:600;font-size:14px;margin-right:8px;padding-right:8px;border-right:1px solid var(--line)}
+  input{flex:1;min-width:0;width:100%;border:0;border-radius:0;outline:0;-webkit-appearance:none;appearance:none;background:transparent;color:var(--ink);font:inherit;font-size:18px;letter-spacing:.5px;padding:13px 0;min-height:48px}
+  button.go{flex:none;min-height:48px;white-space:nowrap;border:0;background:var(--navy);color:#fff;font:inherit;font-weight:600;border-radius:10px;padding:0 20px;cursor:pointer;touch-action:manipulation;transition:filter .15s,transform .1s}
+  @media (prefers-color-scheme:dark){button.go{color:#0e151c}}
+  button.go:hover{filter:brightness(1.1)} button.go:active{transform:scale(.97)}
+  button.go[disabled]{opacity:.6;cursor:default}
+  #out{margin-top:20px}
+  .msg{padding:14px 16px;border-radius:10px;background:var(--paper);border:1px solid var(--line);color:var(--muted)}
+  .msg.warn{color:var(--due);border-color:var(--due)}
+  .count{font-size:13.5px;color:var(--muted);margin:0 0 8px}
+  .card{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:10px;padding:14px 16px;margin-bottom:10px;animation:in .22s ease both}
+  .card.bad{border-left-color:var(--due)}
+  .card .nm{font-size:17px;overflow-wrap:anywhere}
+  .card .ad{color:var(--muted);font-size:14.5px;overflow-wrap:anywhere}
+  .amt{margin-top:10px;font-size:clamp(26px,8vw,32px);font-weight:800;line-height:1.1;color:var(--due)}
+  .amt.clear{font-size:20px;color:var(--ok)}
+  .lab{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .upd{font-size:13px;color:var(--muted);margin-top:4px}
+  .call{display:inline-block;margin-top:6px;color:var(--navy);font-weight:600;text-decoration:none}
+  .sk{height:16px;border-radius:6px;background:linear-gradient(90deg,var(--line),transparent,var(--line));background-size:200% 100%;animation:sh 1s linear infinite;margin:8px 0}
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes sh{to{background-position:-200% 0}}
+  .help{margin-top:22px;padding:14px 16px;border-radius:10px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--navy);font-size:15px}
+  .help a{display:inline-block;margin-top:4px;color:var(--navy);font-weight:700;font-size:18px;text-decoration:none}
+  .pow{margin-top:12px;font-size:17px;font-weight:800;color:var(--ink);letter-spacing:.2px}
+  .pb{font-weight:800;font-size:17px;color:var(--navy)}
+  .pn{color:#c2410c}
+  @media (prefers-color-scheme:dark){.pn{color:#ffb86b}}
+  footer{flex:none;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--line);background:var(--paper)}
+  footer a{color:inherit}
+  .main-link{display:inline-block;margin-top:6px;padding:6px 4px;font-weight:600;font-size:14px;color:var(--navy);text-decoration:none;touch-action:manipulation}
+  .main-link:hover{text-decoration:underline}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-hidden="true">RGCE</div>
+  <div><b>Roza Gift Corner &amp; Electric</b><small data-t="tag">Due check</small></div>
+  <button class="lang" id="lang" type="button">বাংলা</button>
+</header>
+
+<main>
+  <h1 data-t="h1">Check your due</h1>
+  <p class="sub" data-t="sub">Enter the mobile number you gave the shop. No login needed.</p>
+  <div class="seg" role="group" aria-label="Search by">
+    <button type="button" id="mName" aria-pressed="true" data-t="byName">Name</button>
+    <button type="button" id="mNum" aria-pressed="false" data-t="byNum">Mobile number</button>
+  </div>
+  <form id="f" autocomplete="off">
+    <label class="field"><span id="pre" style="display:none">BD</span>
+      <input id="ph" type="text" inputmode="text" maxlength="40" placeholder="Name (part is fine)" aria-label="Search" enterkeyhint="search">
+    </label>
+    <button class="go" id="go" type="submit" data-t="check">Check</button>
+  </form>
+  <div id="out" aria-live="polite"></div>
+  <div class="help" id="help" hidden><span data-t="help"></span><br><a href="tel:+8801340561000">+8801340-561000</a></div>
+</main>
+
+<footer>
+  <div data-t="addr">Moshjid Market, Naohata Mor, Mohadevpur, Naogaon</div>
+  <div><span data-t="call">Shop phone</span>: <a href="tel:+8801715986646">+8801715986646</a></div>
+  <div class="pow"><span class="pb" data-t="pow">Powered by</span> <span class="pn">Farhan Tanzid Shiyam</span></div>
+  <a class="main-link" id="mainLink" href="https://farhantanzidshiyam-dev.github.io/sites/" data-t="mainApp">Go to main app</a>
+</footer>
+
+<script>
+(function(){
+  /* Same Firebase project as the main app. The main app already publishes one small public record per
+     phone number (collection public_dues, id = "p" + SHA-256("rgce-due-v1:" + number)). This page only reads it. */
+  var FB_PROJECT='rgce-sparkdesk', FB_KEY='AIzaSyAqsPu8YK5xFHEoWTmZLzJl6z9NmchdrEg', SHOP_PHONE='+8801715986646';
+
+  var T={
+    en:{help:'For any issue about your due amount, please contact',pow:'Powered by',tag:'Due check',mainApp:'Go to main app',h1:'Check your due',sub:'Search with your mobile number or any part of your name. No login needed.',byNum:'Mobile number',byName:'Name',namePh:'Name (part is fine)',nameBad:'Type at least 2 letters of the name.',noList:'Name search is not switched on yet. Please search by mobile number.',more:'Showing the first 20. Type more of the name to narrow it down.',nameNote:'Address is hidden for name search. Use your mobile number for full details.',check:'Check',addr:'Moshjid Market, Naohata Mor, Mohadevpur, Naogaon',call:'Shop phone',
+        bad:'Enter a valid mobile number (01XXXXXXXXX).',wait:'Too many tries. Please wait a minute.',none:'No due record found. Please check the number or name, or contact the shop.',err:'Could not check right now. Please try again later.',
+        name:'Name',addrL:'Address',srcL:'Source',due:'Current due',clear:'No due. Thank you!',upd:'Updated',many:' customers use this number',other:'Bangla'},
+    bn:{help:'বাকির পরিমাণ নিয়ে কোনো সমস্যা হলে যোগাযোগ করুন',pow:'Powered by',tag:'বাকি দেখুন',mainApp:'মূল অ্যাপে যান',h1:'আপনার বাকি দেখুন',sub:'মোবাইল নম্বর বা নামের যেকোনো অংশ দিয়ে খুঁজুন। লগইন লাগবে না।',byNum:'মোবাইল নম্বর',byName:'নাম',namePh:'নাম (আংশিক হলেও চলবে)',nameBad:'নামের কমপক্ষে ২ অক্ষর লিখুন।',noList:'নাম দিয়ে খোঁজা এখনো চালু হয়নি। মোবাইল নম্বর দিয়ে খুঁজুন।',more:'প্রথম ২০টি দেখানো হচ্ছে। নামের আরও অংশ লিখে সীমিত করুন।',nameNote:'নাম দিয়ে খুঁজলে ঠিকানা দেখানো হয় না। পূর্ণ তথ্যের জন্য মোবাইল নম্বর দিন।',check:'দেখুন',addr:'মসজিদ মার্কেট, নওহাটা মোড়, মহাদেবপুর, নওগাঁ',call:'দোকানের ফোন',
+        bad:'সঠিক মোবাইল নম্বর লিখুন (01XXXXXXXXX)।',wait:'অনেকবার চেষ্টা হয়েছে। এক মিনিট অপেক্ষা করুন।',none:'কোনো বাকির তথ্য পাওয়া যায়নি। নম্বর বা নাম দেখে নিন, অথবা দোকানে যোগাযোগ করুন।',err:'এখন দেখা যাচ্ছে না। পরে আবার চেষ্টা করুন।',
+        name:'নাম',addrL:'ঠিকানা',srcL:'সোর্স',due:'বর্তমান বাকি',clear:'কোনো বাকি নেই। ধন্যবাদ!',upd:'হালনাগাদ',many:' জন গ্রাহক এই নম্বর ব্যবহার করেন',other:'English'}
+  };
+  var mode='name', lang='en'; try{ lang=localStorage.getItem('due_lang')==='bn'?'bn':'en'; }catch(e){}
+  var $=function(i){return document.getElementById(i);}, out=$('out'), ph=$('ph'), go=$('go'), last=null, tries=[], busy=false;
+  function t(k){ return T[lang][k]; }
+  function applyLang(){
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.getAttribute('data-t')); });
+    $('lang').textContent=t('other'); ph.placeholder=mode==='num'?'01XXXXXXXXX':t('namePh');
+    if(last) render(last);
+  }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function sv(v){ if(v==null) return ''; if(typeof v==='object'){ v=v.stringValue!==undefined?v.stringValue:(v.integerValue!==undefined?v.integerValue:(v.doubleValue!==undefined?v.doubleValue:'')); } return String(v==null?'':v).trim(); }
+  function money(n){ return '\u09F3'+Math.round(n).toLocaleString('en-US'); }
+  function normName(s){ return String(s||'').normalize('NFC').toLowerCase().replace(/\s+/g,' ').trim(); }
+  var SKEY='due_state';
+  function saveState(searched){ try{ sessionStorage.setItem(SKEY,JSON.stringify({m:mode,q:ph.value,s:!!searched})); }catch(e){} }
+  function setMode(m){
+    mode=m; $('mNum').setAttribute('aria-pressed',m==='num'); $('mName').setAttribute('aria-pressed',m==='name');
+    ph.value=''; ph.type=m==='num'?'tel':'text'; ph.inputMode=m==='num'?'numeric':'text';
+    ph.placeholder=m==='num'?'01XXXXXXXXX':t('namePh'); $('pre').style.display=m==='num'?'':'none';
+    last=null; out.innerHTML=''; $('help').hidden=true; saveState(false); ph.focus();
+  }
+  function norm(p){
+    var d=String(p||'').replace(/[\u09E6-\u09EF]/g,function(c){return String(c.charCodeAt(0)-0x09E6);}).replace(/\D/g,'');
+    if(d.indexOf('00880')===0) d=d.slice(4); else if(d.indexOf('880')===0) d=d.slice(2);
+    if(d.length===10&&d.charAt(0)==='1') d='0'+d;
+    return /^01\d{9}$/.test(d)?d:'';
+  }
+  async function sha(s){
+    var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+    return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');
+  }
+  function msg(text,warn){ last=null; $('help').hidden=true; out.innerHTML='<div class="msg'+(warn?' warn':'')+'">'+esc(text)+'</div>'; }
+  function render(r){
+    last=r; var arr=r.list, h='';
+    if(arr.length>1) h+='<p class="count">'+arr.length+esc(t('many'))+'</p>';
+    arr.forEach(function(x){
+      h+='<div class="card'+(x.due>0?' bad':'')+'"><div class="nm">'+esc(t('name'))+': <b>'+esc(x.nm)+'</b></div>'
+        +(x.ad?'<div class="ad">'+esc(t('addrL'))+': '+esc(x.ad)+'</div>':'')
+        +(x.src?'<div class="ad">'+esc(t('srcL'))+': '+esc(x.src)+'</div>':'')
+        +(x.due>0?'<div class="lab">'+esc(t('due'))+'</div><div class="amt">'+esc(money(x.due))+'</div>':'<div class="amt clear">'+esc(t('clear'))+'</div>')
+        +'</div>';
+    });
+    if(r.more) h+='<div class="upd">'+esc(t('more'))+'</div>';
+    if(r.upd) h+='<div class="upd">'+esc(t('upd'))+': '+esc(r.upd)+'</div>';
+    if(location.hash==='#debug') h+='<pre style="white-space:pre-wrap;font-size:12px;color:var(--muted)">page v3 | '+esc(JSON.stringify(arr))+'</pre>';
+    out.innerHTML=h; $('help').hidden=false;
+  }
+  var cache={at:0,rows:[]};
+  async function loadAll(){
+    if(Date.now()-cache.at<60000&&cache.rows.length) return cache.rows;
+    var rows=[], tok='', base='https://firestore.googleapis.com/v1/projects/'+FB_PROJECT+'/databases/(default)/documents/public_dues?pageSize=300&key='+FB_KEY;
+    for(var pg=0;pg<20;pg++){
+      var r=await fetch(base+(tok?'&pageToken='+encodeURIComponent(tok):''),{cache:'no-store'});
+      if(r.status===403||r.status===401){ var e=new Error('list'); e.noList=true; throw e; }
+      if(!r.ok) throw new Error('http '+r.status);
+      var j=await r.json();
+      (j.documents||[]).forEach(function(d){
+        var f=d.fields||{}, upd='';
+        try{ if(f.upd&&f.upd.timestampValue) upd=new Date(f.upd.timestampValue).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){}
+        var arr=null; try{ if(f.cs&&f.cs.stringValue) arr=JSON.parse(f.cs.stringValue); }catch(e){}
+        if(!arr||!arr.length) arr=[{nm:(f.nm&&f.nm.stringValue)||'-',ad:(f.ad&&f.ad.stringValue)||'',src:sv(f.src||f.source),due:Number(f.due&&(f.due.integerValue!==undefined?f.due.integerValue:f.due.doubleValue))||0}];
+        arr.forEach(function(x){ rows.push({nm:x.nm||'-',ad:x.ad||'',src:sv(x.src!=null?x.src:x.source),due:Number(x.due)||0,upd:upd,k:normName(x.nm)}); });
+      });
+      tok=j.nextPageToken||''; if(!tok) break;
+    }
+    cache={at:Date.now(),rows:rows}; return rows;
+  }
+  async function check(){
+    if(busy) return;
+    var p, q;
+    if(mode==='num'){ p=norm(ph.value); if(!p){ msg(t('bad'),true); return; } }
+    else { q=normName(ph.value); if(q.length<2){ msg(t('nameBad'),true); return; } }
+    var now=Date.now(); tries=tries.filter(function(x){return now-x<60000;});
+    if(tries.length>=8){ msg(t('wait'),true); return; }
+    tries.push(now); saveState(true); busy=true; go.disabled=true; last=null; $('help').hidden=true;
+    out.innerHTML='<div class="msg"><div class="sk" style="width:70%"></div><div class="sk" style="width:45%"></div></div>';
+    try{
+      if(mode==='name'){
+        var words=q.split(' ').filter(Boolean), rows=await loadAll();
+        var hit=rows.filter(function(x){ return words.every(function(w){ return x.k.indexOf(w)>-1; }); });
+        hit.sort(function(a,b){ return (a.k.indexOf(words[0])===0?0:1)-(b.k.indexOf(words[0])===0?0:1) || a.k.localeCompare(b.k); });
+        if(!hit.length){ msg(t('none')); return; }
+        var upd=hit[0].upd, list=hit.slice(0,20).map(function(x){return {nm:x.nm,ad:x.ad,src:x.src,due:x.due};});
+        render({byName:true,upd:upd,list:list,more:hit.length>20}); return;
+      }
+      if(!(window.crypto&&crypto.subtle)) throw new Error('n/a');
+      var id='p'+await sha('rgce-due-v1:'+p);
+      var r=await fetch('https://firestore.googleapis.com/v1/projects/'+FB_PROJECT+'/databases/(default)/documents/public_dues/'+id+'?key='+FB_KEY,{cache:'no-store'});
+      if(r.status===404){ msg(t('none')); return; }
+      if(!r.ok) throw new Error('http '+r.status);
+      var f=(await r.json()).fields||{};
+      var due=Number(f.due&&(f.due.integerValue!==undefined?f.due.integerValue:f.due.doubleValue))||0;
+      var nm=(f.nm&&f.nm.stringValue)||'-', ad=(f.ad&&f.ad.stringValue)||'', upd2='';
+      try{ if(f.upd&&f.upd.timestampValue) upd2=new Date(f.upd.timestampValue).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){}
+      var arr=null; try{ if(f.cs&&f.cs.stringValue) arr=JSON.parse(f.cs.stringValue); }catch(e){}
+      if(!arr||!arr.length) arr=[{nm:nm,ad:ad,src:sv(f.src||f.source),due:due}];
+      render({byName:false,upd:upd2,list:arr.map(function(x){return {nm:x.nm||'-',ad:x.ad||'',src:sv(x.src!=null?x.src:x.source),due:Number(x.due)||0};})});
+    }catch(e){ console.warn('due lookup',e); msg(e&&e.noList?t('noList'):t('err'),true); }
+    finally{ busy=false; go.disabled=false; }
+  }
+  $('f').addEventListener('submit',function(e){ e.preventDefault(); check(); });
+  $('lang').addEventListener('click',function(){ lang=lang==='bn'?'en':'bn'; try{ localStorage.setItem('due_lang',lang); }catch(e){} applyLang(); });
+  $('mNum').addEventListener('click',function(){ if(mode!=='num') setMode('num'); });
+  $('mName').addEventListener('click',function(){ if(mode!=='name') setMode('name'); });
+  ph.addEventListener('input',function(){ saveState(false); });
+  /* Restore search after coming back from the main app (back button) */
+  (function(){
+    var st=null; try{ st=JSON.parse(sessionStorage.getItem(SKEY)||'null'); }catch(e){}
+    if(st&&(st.m==='num'||st.m==='name')){
+      mode=st.m; $('mNum').setAttribute('aria-pressed',mode==='num'); $('mName').setAttribute('aria-pressed',mode==='name');
+      ph.type=mode==='num'?'tel':'text'; ph.inputMode=mode==='num'?'numeric':'text'; $('pre').style.display=mode==='num'?'':'none';
+      ph.value=st.q||'';
+    }
+    applyLang();
+    if(st&&st.s&&ph.value) check();
+  })();
+})();
+</script>
+</body>
+</html>
