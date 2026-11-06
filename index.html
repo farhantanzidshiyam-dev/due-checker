@@ -16,6 +16,8 @@
       --navy:#6fa8dc; --navy-d:#0f2d4a; --due:#ff8a80; --due-bg:#3a1c1a; --ok:#7bd69a; --ok-bg:#16301f; }
   }
   *{box-sizing:border-box}
+  body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+  input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;background:var(--bg);height:100%}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Roboto,"Noto Sans Bengali","Noto Sans","Segoe UI","Nirmala UI",system-ui,-apple-system,Arial,sans-serif;
     min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;overflow-wrap:break-word}
@@ -67,8 +69,7 @@
   @media (prefers-color-scheme:dark){.pn{color:#ffb86b}}
   footer{flex:none;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--line);background:var(--paper)}
   footer a{color:inherit}
-  .main-link{display:inline-block;margin-top:6px;padding:6px 4px;font-weight:600;font-size:14px;color:var(--navy);text-decoration:none;touch-action:manipulation}
-  .main-link:hover{text-decoration:underline}
+  .main-link{display:inline-block;margin-top:6px;padding:6px 4px;font-weight:600;font-size:14px;color:var(--navy);text-decoration:underline;text-underline-offset:3px;touch-action:manipulation}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -234,6 +235,11 @@
     if(st&&st.s&&ph.value) check();
   })();
 })();
+  /* Block copy/select/drag outside input boxes */
+  function inField(e){ var t=e.target; return t&&t.closest&&t.closest('input,textarea'); }
+  ['copy','cut','selectstart','dragstart','contextmenu'].forEach(function(ev){
+    document.addEventListener(ev,function(e){ if(!inField(e)) e.preventDefault(); });
+  });
 </script>
 </body>
 </html>
